@@ -1,0 +1,37 @@
+### IntelliJ IDEA ###
+.idea/
+*.iml
+out/
+
+# Uncomment if using Gradle with auto-import
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/misc.xml
+
+### Java ###
+*.class
+*.log
+*.ctxt
+
+### Maven ###
+target/
+
+### Gradle ###
+.gradle/
+build/
+
+### Logs ###
+*.log
+logs/
+*.out
+
+### OS Files ###
+.DS_Store
+Thumbs.db
+
+### Application Properties (optional, for security) ###
+# application.properties
+# application.yml
+
+### Other ###
+!src/main/resources/
