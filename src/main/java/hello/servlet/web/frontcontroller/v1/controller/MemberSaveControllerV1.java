@@ -1,29 +1,26 @@
-package hello.servlet.web.servletmvc;
+package hello.servlet.web.frontcontroller.v1.controller;
 
 import hello.servlet.domain.member.Member;
 import hello.servlet.domain.member.MemberRepository;
+import hello.servlet.web.frontcontroller.v1.ControllerV1;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name="mvcMemberSaveServlet", urlPatterns = "/servlet-mvc/members/save")
-public class MvcMemberSaveServlet extends HttpServlet {
+public class MemberSaveControllerV1 implements ControllerV1 {
 
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String username = request.getParameter("username");
         int age = Integer.parseInt(request.getParameter("age"));
 
         Member member = new Member(username, age);
-        System.out.println("member = " + member);
         memberRepository.save(member); //이전 서블릿 코드와 똑같음
 
         //차이점은 여기서!!
@@ -34,7 +31,5 @@ public class MvcMemberSaveServlet extends HttpServlet {
         String viewPath = "/WEB-INF/views/save-result.jsp"; //넘어가자 ~~
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
-
-
     }
 }
