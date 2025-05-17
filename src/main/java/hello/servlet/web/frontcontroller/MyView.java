@@ -10,9 +10,13 @@ package hello.servlet.web.frontcontroller;
 //v2 구조 : 클라이언트 http 요청 -> 프론트 컨트롤러가 매핑 정보 찾아와서 해당 컨트롤러 호출
 // -> 컨트롤러가 myview 반환 -> 프론트 컨트롤러가 myview에 render() 호출 -> myview가 jsp forward -> html 응답
 
+// ** 컨트롤러가 MyView를 실행하는 게 아니라, 생성하고 반환만 하는 것!
+
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.SneakyThrows;
 
 import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
@@ -26,6 +30,7 @@ public class MyView {
     }
 
     //기존에 jsp로 이동한다 했던 것(실제 view가 렌더링 되도록 동작하는 것)을 렌더링 된다고 표현하겠다~~
+    @SneakyThrows
     public void render(HttpServletRequest request, HttpServletResponse response) throws SerialException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
