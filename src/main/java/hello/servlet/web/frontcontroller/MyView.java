@@ -20,6 +20,7 @@ import lombok.SneakyThrows;
 
 import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
+import java.util.Map;
 
 public class MyView {
 
@@ -35,4 +36,17 @@ public class MyView {
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
     } //view 만드는 행위 자체를 렌더링한다고 표현하신대용~~
+
+    public void render(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //모델에 있는 데이터를 다 꺼내야 됨
+        modelToRequestAttribute(model, request); //메서드 생성해 주기
+        RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+        dispatcher.forward(request, response);
+    }
+
+    private static void modelToRequestAttribute(Map<String, Object> model, HttpServletRequest request) {
+        //변수명 key value로 해서 map에 루프를 다 돌린다고 이해하면 됨
+        //그다음 request.setAttribute() 통해 key value에 값을 다 담아놓음
+        model.forEach((key, value)-> request.setAttribute(key, value));
+    }
 }
